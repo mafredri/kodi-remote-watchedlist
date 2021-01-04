@@ -77,14 +77,14 @@ if utils.getSetting('dbbackupcount') != '0':
 #                         "pass": base64.b64decode("bWNneHd1and6c3ducW1iaA==").decode('ascii')}
 
 QUERY_MV_INSERT_SQLITE = 'INSERT OR IGNORE INTO movie_watched (idMovieImdb,playCount,lastChange,lastPlayed,title) VALUES (?, ?, ?, ?, ?)'
-QUERY_MV_INSERT_MYSQL = 'INSERT IGNORE INTO movie_watched (idMovieImdb,playCount,lastChange,lastPlayed,title) VALUES (%s, %s, FROM_UNIXTIME(%s), FROM_UNIXTIME(%s), %s)'
+QUERY_MV_INSERT_MYSQL = 'INSERT IGNORE INTO movie_watched (idMovieImdb,playCount,lastChange,lastPlayed,title) VALUES (%s, %s, %s, %s, %s)'
 QUERY_EP_INSERT_SQLITE = 'INSERT OR IGNORE INTO episode_watched (idShow,season,episode,playCount,lastChange,lastPlayed) VALUES (?, ?, ?, ?, ?, ?)'
-QUERY_EP_INSERT_MYSQL = 'INSERT IGNORE INTO episode_watched (idShow,season,episode,playCount,lastChange,lastPlayed) VALUES (%s, %s, %s, %s, FROM_UNIXTIME(%s), FROM_UNIXTIME(%s))'
+QUERY_EP_INSERT_MYSQL = 'INSERT IGNORE INTO episode_watched (idShow,season,episode,playCount,lastChange,lastPlayed) VALUES (%s, %s, %s, %s, %s, %s)'
 
 QUERY_MV_UPDATE_SQLITE = 'UPDATE movie_watched SET playCount = ?, lastplayed = ?, lastChange = ? WHERE idMovieImdb LIKE ?'
-QUERY_MV_UPDATE_MYSQL = 'UPDATE movie_watched SET playCount = %s, lastplayed = FROM_UNIXTIME(%s), lastChange = FROM_UNIXTIME(%s) WHERE idMovieImdb LIKE %s'
+QUERY_MV_UPDATE_MYSQL = 'UPDATE movie_watched SET playCount = %s, lastplayed = %s, lastChange = %s WHERE idMovieImdb LIKE %s'
 QUERY_EP_UPDATE_SQLITE = 'UPDATE episode_watched SET playCount = ?, lastPlayed = ?, lastChange = ? WHERE idShow LIKE ? AND season LIKE ? AND episode LIKE ?'
-QUERY_EP_UPDATE_MYSQL = 'UPDATE episode_watched SET playCount = %s, lastPlayed = FROM_UNIXTIME(%s), lastChange = FROM_UNIXTIME(%s) WHERE idShow LIKE %s AND season LIKE %s AND episode LIKE %s'
+QUERY_EP_UPDATE_MYSQL = 'UPDATE episode_watched SET playCount = %s, lastPlayed = %s, lastChange = %s WHERE idShow LIKE %s AND season LIKE %s AND episode LIKE %s'
 
 # Queries to create tables for movies ("mv"), episodes ("ep") and series ("ss") for sqlite and mysql
 QUERY_CREATE_MV_SQLITE = "CREATE TABLE IF NOT EXISTS movie_watched (idMovieImdb INTEGER PRIMARY KEY,playCount INTEGER,lastChange INTEGER,lastPlayed INTEGER,title TEXT)"
@@ -94,8 +94,8 @@ QUERY_CREATE_SS_SQLITE = "CREATE TABLE IF NOT EXISTS tvshows (idShow INTEGER, ti
 QUERY_CREATE_MV_MYSQL = ("CREATE TABLE IF NOT EXISTS `movie_watched` ("
                          "`idMovieImdb` int unsigned NOT NULL,"
                          "`playCount` tinyint unsigned DEFAULT NULL,"
-                         "`lastChange` timestamp NULL DEFAULT NULL,"
-                         "`lastPlayed` timestamp NULL DEFAULT NULL,"
+                         "`lastChange` int NULL DEFAULT NULL,"
+                         "`lastPlayed` int NULL DEFAULT NULL,"
                          "`title` text,"
                          "PRIMARY KEY (`idMovieImdb`)"
                          ") ENGINE=InnoDB DEFAULT CHARSET=utf8;")
@@ -104,8 +104,8 @@ QUERY_CREATE_EP_MYSQL = ("CREATE TABLE IF NOT EXISTS `episode_watched` ("
                          "`season` smallint unsigned NOT NULL DEFAULT '0',"
                          "`episode` smallint unsigned NOT NULL DEFAULT '0',"
                          "`playCount` tinyint unsigned DEFAULT NULL,"
-                         "`lastChange` timestamp NULL DEFAULT NULL,"
-                         "`lastPlayed` timestamp NULL DEFAULT NULL,"
+                         "`lastChange` int NULL DEFAULT NULL,"
+                         "`lastPlayed` int NULL DEFAULT NULL,"
                          "PRIMARY KEY (`idShow`,`season`,`episode`)"
                          ") ENGINE=InnoDB DEFAULT CHARSET=utf8;")
 QUERY_CREATE_SS_MYSQL = ("CREATE TABLE IF NOT EXISTS `tvshows` ("
