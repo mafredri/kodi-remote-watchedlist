@@ -190,7 +190,13 @@ def executeJSON(request):
 
     values = json.dumps(request)  # create string from dict
 
-    resp = requests.post(os.getenv('KODI_URL'), values.encode('utf-8'), headers=headers, auth=(os.getenv('KODI_USER', ''), os.getenv('KODI_PASS', '')))
+    resp = requests.post(
+        os.getenv('KODI_URL'),
+        values.encode('utf-8'),
+        headers=headers,
+        auth=(os.getenv('KODI_USER', ''), os.getenv('KODI_PASS', '')),
+        timeout=10,
+    )
     resp.raise_for_status()
     return resp.json()
 
