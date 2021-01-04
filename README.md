@@ -28,7 +28,7 @@ export MYSQL_DB=watchedlist
 export MYSQL_USER=kodi
 export MYSQL_PASS="supersecret password"
 
-export KODI_URL="http://my.kod.host:8080/jsonrpc"
+export KODI_URL="http://my.kodi.host:8080/jsonrpc"
 export KODI_USER=kodi
 export KODI_PASS=kodi
 ```
