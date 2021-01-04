@@ -4,7 +4,7 @@ This file contains API functions for the usage of WatchedList with other Kodi ad
 
 import time
 
-import xbmc
+# import xbmc
 
 from lib.watchedlist.watchedlist import WatchedList
 import lib.watchedlist.utils as utils
@@ -35,7 +35,7 @@ def change_watched_movie(imdb_id, playCount=1, name=''):
     lastChange = lastPlayed
     with WatchedList(True) as WL:
         if WL.get_watched_wl(1):  # Read the WL database
-            utils.showNotification(utils.getString(32102), utils.getString(32602), xbmc.LOGERROR)
+            utils.showNotification(utils.getString(32102), utils.getString(32602), 'xbmc.LOGERROR')
             return 1
         WL.wl_update_media('movie', row_xbmc, saveanyway, commit, lastChange)
     return 0
@@ -68,7 +68,7 @@ def change_watched_episode(tvdb_id, season, episode, playCount=1, name=''):
     lastChange = lastPlayed
     with WatchedList(True) as WL:
         if WL.get_watched_wl(1):  # Read the WL database
-            utils.showNotification(utils.getString(32102), utils.getString(32602), xbmc.LOGERROR)
+            utils.showNotification(utils.getString(32102), utils.getString(32602), 'xbmc.LOGERROR')
             return 1
         WL.wl_update_media('episode', row_xbmc, saveanyway, commit, lastChange)
     return 0
@@ -95,7 +95,7 @@ def change_watched_episodes(tvdb_id, seasons, episodes, playCount, names):
         lastPlayed = int(time.time())
     with WatchedList(True) as WL:
         if WL.get_watched_wl(1):  # Read the WL database
-            utils.showNotification(utils.getString(32102), utils.getString(32602), xbmc.LOGERROR)
+            utils.showNotification(utils.getString(32102), utils.getString(32602), 'xbmc.LOGERROR')
             return 1
         for i in range(len(seasons)):
             row_xbmc_i = [tvdb_id, seasons[i], episodes[i], lastPlayed, playCount, names[i], 0]  # 0imdbnumber, 1empty, 2empty, 3lastPlayed, 4playCount, 5title, 6empty, 7movieid
