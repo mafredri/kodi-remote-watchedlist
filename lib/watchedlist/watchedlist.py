@@ -119,10 +119,10 @@ QUERY_CLEAR_MV_SQLITE = "DELETE FROM movie_watched;"
 QUERY_CLEAR_EP_SQLITE = "DELETE FROM episode_watched;"
 
 # Queries for selecting all table entries
-QUERY_SELECT_MV_SQLITE = "SELECT idMovieImdb, lastPlayed, playCount, title, lastChange FROM movie_watched ORDER BY title"
-QUERY_SELECT_MV_MYSQL = "SELECT `idMovieImdb`, `lastPlayed`, `playCount`, `title`, `lastChange` FROM `movie_watched` ORDER BY `title`"
-QUERY_SELECT_EP_SQLITE = "SELECT idShow, season, episode, lastPlayed, playCount, lastChange FROM episode_watched ORDER BY idShow, season, episode"
-QUERY_SELECT_EP_MYSQL = "SELECT `idShow`, `season`, `episode`, `lastPlayed`, `playCount`, `lastChange` FROM `episode_watched` ORDER BY `idShow`, `season`, `episode`"
+QUERY_SELECT_MV_SQLITE = "SELECT idMovieImdb, lastPlayed, playCount, title, CASE WHEN lastChange IS NULL THEN 0 ELSE lastChange END AS lastChange FROM movie_watched ORDER BY title"
+QUERY_SELECT_MV_MYSQL = "SELECT `idMovieImdb`, `lastPlayed`, `playCount`, `title`, CASE WHEN `lastChange` IS NULL THEN 0 ELSE `lastChange` END AS `lastChange` FROM `movie_watched` ORDER BY `title`"
+QUERY_SELECT_EP_SQLITE = "SELECT idShow, season, episode, lastPlayed, playCount, CASE WHEN lastChange IS NULL THEN 0 ELSE lastChange END AS lastChange FROM episode_watched ORDER BY idShow, season, episode"
+QUERY_SELECT_EP_MYSQL = "SELECT `idShow`, `season`, `episode`, `lastPlayed`, `playCount`, CASE WHEN `lastChange` IS NULL THEN 0 ELSE `lastChange` END AS `lastChange` FROM `episode_watched` ORDER BY `idShow`, `season`, `episode`"
 
 # Queries for inserting tv series
 QUERY_INSERT_SS_SQLITE = "INSERT OR IGNORE INTO tvshows (idShow,title) VALUES (?, ?)"
